@@ -76,9 +76,9 @@ sub load_smart_config {
             my $short_key = $key;
             $short_key =~ s/^$prefix//;
             
-            # Strip inline comments (everything after #)
+            # Strip inline comments (only # after whitespace)
             my $value = $config{$key};
-            $value =~ s/\s*#.*$//;  # Remove # and everything after it
+            $value =~ s/\s+#.*$//;  # Remove # and everything after it (only if # is preceded by whitespace)
             $value =~ s/^\s+|\s+$//g;  # Trim whitespace
             
             $state{config}{$short_key} = $value;
@@ -152,8 +152,10 @@ sub count_our_monsters {
         # Check if someone else damaged this monster
         my $others_damaged = 0;
         if ($monster->{dmgFromPlayer} && ref($monster->{dmgFromPlayer}) eq 'HASH') {
+            # Ensure $accountID is defined before comparison
+            my $our_id = $accountID || '';
             foreach my $player_id (keys %{$monster->{dmgFromPlayer}}) {
-                if ($player_id ne $accountID) {
+                if ($player_id ne $our_id) {
                     $others_damaged = 1;
                     last;
                 }
@@ -228,9 +230,15 @@ sub perform_teleport {
     # Reset timeout
     $timeout{ai_teleport_idle}{time} = time;
     
-    # Trigger teleport (this is simplified, actual implementation would use Commands)
-    debug "[SimpleTeleHunter] Would teleport using: $teleport_spell\n", 'SimpleTeleHunter';
-    # In real implementation: Commands::run("teleport");
+    # Trigger teleport
+    if ($state{config}{testMode}) {
+        debug "[SimpleTeleHunter] TEST MODE: Would teleport using: $teleport_spell\n", 'SimpleTeleHunter';
+    } else {
+        # Actual teleport implementation
+        require Commands;
+        Commands::run("teleport");
+        debug "[SimpleTeleHunter] Teleporting using: $teleport_spell\n", 'SimpleTeleHunter';
+    }
 }
 
 1;

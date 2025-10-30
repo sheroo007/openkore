@@ -35,6 +35,9 @@ simpleTeleHunter_checkRadius 10
 # Teleport spell/skill name to use
 simpleTeleHunter_teleportSpell Teleport
 
+# Test mode (set to 1 to disable actual teleporting, useful for testing)
+simpleTeleHunter_testMode 0
+
 # ================================================
 # EXAMPLES OF FIXED ISSUES (v4.5.1):
 # ================================================
