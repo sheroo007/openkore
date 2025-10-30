@@ -1,0 +1,74 @@
+# SimpleTeleHunter v4.5.1 - Configuration Example
+# ================================================
+# 
+# A smart teleport hunting plugin with instant teleport support
+#
+# FEATURES:
+# - Automatic teleport when no relevant monsters nearby
+# - Instant re-teleport if landing on empty/occupied spots
+# - Smart monster counting (only counts monsters you're fighting or clean monsters)
+# - Grace period after teleport to allow monsters to load
+#
+# INSTALLATION:
+# 1. Place SimpleTeleHunter.pl in your plugins/ folder
+# 2. Add the configuration below to your config.txt
+# 3. Reload plugins with "reload plugins" command
+#
+# ================================================
+
+# Enable/disable the plugin
+simpleTeleHunter_enabled 1
+
+# Time to wait (in seconds) before teleporting when idle
+simpleTeleHunter_idleTime 5
+
+# Radius to check for monsters for instant teleport (after landing)
+simpleTeleHunter_instantRadius 7
+
+# Grace period (in seconds) to wait after teleport before checking
+# This allows time for monsters to load properly
+simpleTeleHunter_instantGracePeriod 0.5
+
+# Radius to check for monsters during normal idle checks
+simpleTeleHunter_checkRadius 10
+
+# Teleport spell/skill name to use
+simpleTeleHunter_teleportSpell Teleport
+
+# Test mode (set to 1 to disable actual teleporting, useful for testing)
+simpleTeleHunter_testMode 0
+
+# ================================================
+# EXAMPLES OF FIXED ISSUES (v4.5.1):
+# ================================================
+#
+# ✓ Config values now parse correctly even with inline comments
+#   simpleTeleHunter_idleTime 2 # this comment is now properly stripped
+#
+# ✓ Monster counting now only includes:
+#   - Monsters YOU have damaged
+#   - Clean monsters (no one attacked yet)
+#   - EXCLUDES monsters being attacked by other players
+#
+# ✓ Instant teleport now works correctly:
+#   - Properly waits for grace period (default 0.5s)
+#   - Correctly identifies if you landed on empty spot
+#   - Teleports again if no relevant monsters found
+#
+# ✓ Better debug output:
+#   Shows which monsters are counted and why
+#   Shows which monsters are ignored (being fought by others)
+#
+# ================================================
+# CHANGELOG:
+# ================================================
+# v4.5.1 (Bug Fix Release):
+#   - Fixed config parsing to strip inline comments
+#   - Fixed monster counting to only count relevant monsters
+#   - Fixed instant teleport timing and flag reset
+#   - Added detailed debugging output
+#
+# v4.5.0 (Instant Teleport Edition):
+#   - Initial version with instant teleport support
+#
+# ================================================
