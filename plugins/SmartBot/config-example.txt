@@ -1,0 +1,138 @@
+# SmartBot v7.1.1 - Example Configuration
+# Add these lines to your config.txt file
+
+#############################################
+# Map Lock (recommended for zone-based farming)
+#############################################
+lockMap mag_dun02
+
+
+#############################################
+# SmartBot Zone Settings
+#############################################
+
+# Zone radius in cells (default: 15)
+# Recommended: 10-20 cells depending on map
+smartbot_radius 15
+
+# Auto-enable zone on login (0=manual, 1=auto)
+# Set to 1 to automatically create zone at spawn position
+smartbot_autoEnable 1
+
+
+#############################################
+# SmartBot Smart Teleport
+#############################################
+
+# Enable smart teleport (0=off, 1=on)
+# Teleports when no monsters/items in zone
+smartbot_smartTeleport 1
+
+# Delay before teleporting in seconds (default: 2)
+# How long to wait after zone becomes empty before teleporting
+smartbot_teleportDelay 2
+
+
+#############################################
+# Item Gathering (for Merchant/Blacksmith)
+#############################################
+
+# Use Greed skill for item pickup (requires BS_GREED skill)
+itemsTakeGreed 1
+
+# Auto gather items
+itemsGatherAuto 1
+
+# Maximum weight percentage before stopping item pickup
+itemsMaxWeight 89
+
+# Don't gather items in towns
+itemsGatherAuto_notInTown 1
+
+
+#############################################
+# Pickup Settings
+#############################################
+
+# Define which items to pickup (in pickupitems.txt)
+# Example entries in pickupitems.txt:
+#   Old Card Album 1
+#   Phracon 1
+#   Emveretarcon 1
+#   Oridecon 1
+#   Red Potion 1
+#   all 0  # Don't pickup all items by default
+
+
+#############################################
+# Attack Settings (works with zone filter)
+#############################################
+
+# Auto attack monsters
+attackAuto 2
+
+# Don't attack in towns
+attackAuto_inTown 0
+
+# Attack while moving
+attackAuto_onlyWhenSafe 0
+
+
+#############################################
+# Teleport Items
+#############################################
+
+# Make sure you have teleport items
+# Fly Wing or Butterfly Wing in inventory
+
+
+#############################################
+# Timeouts
+#############################################
+
+# Timeout for item pickup attempts
+ai_take_giveup_timeout 3
+
+# Auto-gather start delay
+ai_items_gather_start 3
+
+# Auto-gather giveup timeout
+ai_items_gather_giveup 4
+
+
+#############################################
+# Example Farming Setup for Merchant
+#############################################
+
+# 1. Set lockMap to your farming location
+# 2. Enable smartbot_autoEnable for auto zone setup
+# 3. Enable smartbot_smartTeleport for efficient farming
+# 4. Enable itemsTakeGreed for BS_GREED skill usage
+# 5. Configure attackAuto and itemsGatherAuto
+# 6. Define pickup items in pickupitems.txt
+# 7. Carry teleport items (Fly Wing/Butterfly Wing)
+
+
+#############################################
+# Advanced: Monster Control (optional)
+#############################################
+
+# You can also use mon_control.txt to filter specific monsters
+# within your zone. This works in addition to zone filtering.
+#
+# Example mon_control.txt entries:
+#   Magnolia 1 1 0  # Attack Magnolia
+#   Dustiness 1 1 0  # Attack Dustiness
+#   all 3 0 0  # Ignore all other monsters
+
+
+#############################################
+# Tips
+#############################################
+
+# - Zone automatically follows you on teleport
+# - Use 'sbzone' command to check current zone
+# - Use 'sbstatus' command to see plugin status
+# - Use 'sbgather cancel' to cancel item gathering
+# - Monsters outside zone won't be attacked
+# - Teleport happens only when zone is empty for delay time
