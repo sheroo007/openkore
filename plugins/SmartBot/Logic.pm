@@ -51,9 +51,11 @@ sub process {
 # Auto-updates zone center to new position.
 sub detect_teleport {
     return unless $char;
+    return unless $char->{pos_to};
     
     my $current_x = $char->{pos_to}{x};
     my $current_y = $char->{pos_to}{y};
+    return unless defined $current_x && defined $current_y;
     
     # Initialize on first run
     if ($STATE{last_x} == 0 && $STATE{last_y} == 0) {

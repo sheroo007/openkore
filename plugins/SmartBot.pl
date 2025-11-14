@@ -80,11 +80,13 @@ sub cmd_sbzone {
         message sprintf("Center: (%d, %d)\n", $zone_info->{center_x}, $zone_info->{center_y}), 'list';
         message sprintf("Radius: %d\n", $zone_info->{radius}), 'list';
         
-        if ($char) {
+        if ($char && $char->{pos_to}) {
             my $char_x = $char->{pos_to}{x};
             my $char_y = $char->{pos_to}{y};
-            my $in_zone = SmartBot::Core::is_in_zone($char_x, $char_y) ? 'Yes' : 'No';
-            message sprintf("Your position: (%d, %d) - In zone: %s\n", $char_x, $char_y, $in_zone), 'list';
+            if (defined $char_x && defined $char_y) {
+                my $in_zone = SmartBot::Core::is_in_zone($char_x, $char_y) ? 'Yes' : 'No';
+                message sprintf("Your position: (%d, %d) - In zone: %s\n", $char_x, $char_y, $in_zone), 'list';
+            }
         }
     }
     elsif ($args eq 'on') {
@@ -97,6 +99,10 @@ sub cmd_sbzone {
     }
     elsif ($args =~ /^(\d+)\s+(\d+)\s+(\d+)$/) {
         my ($x, $y, $radius) = ($1, $2, $3);
+        if ($radius == 0) {
+            error "[SmartBot] Radius must be greater than 0\n";
+            return;
+        }
         SmartBot::Core::set_zone($x, $y, $radius);
         message "[SmartBot] Zone set to ($x, $y) with radius $radius\n", 'success';
     }
