@@ -147,9 +147,11 @@ sub has_monsters_in_zone {
         next unless $monster_id;
         my $monster = $monsters{$monster_id};
         next unless $monster;
+        next unless $monster->{pos_to};
         
         my $monster_x = $monster->{pos_to}{x};
         my $monster_y = $monster->{pos_to}{y};
+        next unless defined $monster_x && defined $monster_y;
         
         if (SmartBot::Core::is_in_zone($monster_x, $monster_y)) {
             $STATE{last_monster_seen_time} = time;
@@ -172,9 +174,11 @@ sub has_items_in_zone {
         next unless $item_id;
         my $item = $items{$item_id};
         next unless $item;
+        next unless $item->{pos};
         
         my $item_x = $item->{pos}{x};
         my $item_y = $item->{pos}{y};
+        next unless defined $item_x && defined $item_y;
         
         if (SmartBot::Core::is_in_zone($item_x, $item_y)) {
             $STATE{last_item_seen_time} = time;
@@ -243,10 +247,12 @@ sub check_monster_target {
     # Get monster from target
     my $monster = $args->{target};
     return unless $monster;
+    return unless $monster->{pos_to};
     
     # Check if monster is in zone
     my $monster_x = $monster->{pos_to}{x};
     my $monster_y = $monster->{pos_to}{y};
+    return unless defined $monster_x && defined $monster_y;
     
     unless (SmartBot::Core::is_in_zone($monster_x, $monster_y)) {
         # Monster outside zone, skip attack
